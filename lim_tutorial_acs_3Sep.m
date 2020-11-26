@@ -10,7 +10,7 @@ clear all
 close all
 
 colors1=[ 'r';'g';'b';'c';'m'...
-	  ;'r';'g';'b';'c';'m'];
+    ;'r';'g';'b';'c';'m'];
 
 % size of the sample data matrix:
 ND=6;
@@ -136,18 +136,23 @@ for tt=1:LEN
  lprop(:,:,tt) = expm(B*tt);
 end
 
+%%
 % Eigenvalues and eigenvectors of Propagator matrix
 kk=1;
 for tt=0:1:LEN
   PROP = expm(B*tt);
   [q,w]=eigs(PROP'*PROP,NM);
-  amp_energy(kk) = w(1);
-  q(:,1) = q(:,1) / sqrt(q(:,1)'*q(:,1));
-  ev(:,kk) = q(:,1);
+  [aa,indds] = max(diag(w));
+  allss =  diag(w);
+  amp_energy(kk) = allss(indds);
+
+  disp(sqrt(q(:,indds)'*q(:,indds)));
+  q(:,indds) = q(:,indds) / sqrt(q(:,indds)'*q(:,indds));
+  ev(:,kk) = q(:,indds);
   tim(kk)=tt;
   kk=kk+1;
 end
-
+%%
 max_amp = max(amp_energy);
 max_tim = tim(find(amp_energy==max_amp));
 
@@ -167,12 +172,13 @@ dt=1;
 ta = [0:dt:100]; 
 figure 
 plot(tim,amp_energy,'r.','MarkerSize',15);
-xlim([0 10])
+xlim([0 40])
+ylim([0 max(sig_orig)+10])
+
 hold on 
 plot(ta,[1 sig_orig],'k+','MarkerSize',15);
 legend('LIM','Orig','Location','NorthWest')
 xlabel('Time','fontsize',20,'fontweight','b'); 
 ylabel('|P(t)|','fontsize',20,'fontweight','b'); 
 set(gca,'fontsize',20,'fontweight','b')
-
 
