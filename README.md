@@ -1,7 +1,7 @@
-# LIM
+# LIM (Linear Inverse Modeling)
 
+# a quick jupyter notebook for Linear Inverse modeling. 
 
-# a quick jupyter notebook for Linear inverse modeling. 
+### This is preliminary work and shouldn't be trusted with your phd stuffs... 
 
-### add dependencies
-
+Add theory section here. 
